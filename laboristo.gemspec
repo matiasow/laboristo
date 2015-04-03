@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.license       = 'MIT'
 
   s.files         = `git ls-files`.split("\n")
-  s.bindir        = 'exe'
+  s.bindir        = 'bin'
   s.executables   << 'laboristo'
 
   s.add_dependency 'aws-sdk-core', '~> 2'
