@@ -121,7 +121,7 @@ Feel free to report bugs, open issues, comments and pull requests. Only keep in 
 
 ## Credits
 
-Most of the credit for this gem goes to [@soveran](https://github.com/soveran/ost) and [@djanowski](https://github.com/djanowski/ost-bin), who created the code this gem is based in. Kudos to them!
+Most of the credit for this gem goes to [@soveran](https://github.com/soveran/ost) and [@djanowski](https://github.com/djanowski/ost-bin), who created the code this gem is based on. Kudos to them!
 
 ## License
 Laboristo is released under the [MIT License](http://www.opensource.org/licenses/MIT).
