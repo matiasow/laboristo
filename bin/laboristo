@@ -1,0 +1,46 @@
+#! /usr/bin/env ruby
+
+stop = proc do
+  if defined?(Laboristo)
+    Laboristo.stop
+  else
+    exit 0
+  end
+end
+
+trap(:INT,  &stop)
+trap(:TERM, &stop)
+
+usage = <<-EOS
+Usage:
+  laboristo start <worker> [-d|--daemonize]
+  laboristo stop <worker>
+EOS
+
+require 'clap'
+require 'laboristo'
+
+opts = {}
+
+args = Clap.run ARGV,
+  '-d' || '--daemonize' => -> {
+    opts[:daemonize] = true
+  }
+
+command = args.shift
+worker = args.shift
+worker_path = File.expand_path("workers/#{worker}")
+pid_path = File.expand_path("tmp/#{worker}.pid")
+
+$stdout.sync = true
+
+
+if opts[:daemonize]
+  Process.daemon(true)
+  File.open(pid_path, File::RDWR | File::EXCL | File::CREAT, 0600) { |io| io.write(Process.pid) }
+  at_exit do
+    File.delete(pid_path) if File.exist?(pid_path)
+  end
+end
+
+require worker_path
