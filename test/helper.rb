@@ -38,5 +38,5 @@ end
 @region = ENV['AWS_REGION']
 @client = Aws::SQS::Client.new
 
-@queue_name = SecureRandom.uuid
+@queue_name = 'laboristo_test_' + SecureRandom.uuid
 @url = @client.create_queue(queue_name: @queue_name).data.to_hash[:queue_url]
