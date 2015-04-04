@@ -1,4 +1,4 @@
-# Laboristo - Simple messages and workers for AWS SQS
+# Laboristo
 
 [![Gem Version](https://badge.fury.io/rb/laboristo.svg)][gem]
 [![Dependency Status](https://gemnasium.com/matiasow/laboristo.svg)][gemnasium]
