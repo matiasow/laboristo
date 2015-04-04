@@ -62,13 +62,13 @@ To push a message to the queue:
 ```ruby
 require 'laboristo'
 
-Laboristo['my_queue_name'] << 'some message'
+Laboristo['my_queue'] << 'some message'
 ```
 
 And get messages from a queue:
 ```ruby
 require 'laboristo'
-Laboristo['my_queue_name'].each do |msg|
+Laboristo['my_queue'].each do |msg|
   # Do something with msg...
 end
 ```
@@ -98,6 +98,14 @@ To run it in background you can use ```-d``` flag to daemonize the process:
 ```
 
 You can stop the workers by killing the process. Keep in mind that, because of how SQS works, unprocessed messages will go back to the queue.
+
+### Purging
+
+Delete all messages from a queue:
+
+```ruby
+  Laboristo['my_queue'].purge
+```
 
 ## Development
 

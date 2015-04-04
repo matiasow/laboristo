@@ -38,6 +38,10 @@ module Laboristo
 
     alias << push
     alias pop each
+
+    def purge
+      @sqs.purge_queue(queue_url: @url)
+    end
   end
 
   def self.[](queue)
