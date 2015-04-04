@@ -13,6 +13,8 @@
 
 Laboristo is an attempt to port [Ost](https://github.com/soveran/ost) simplicity to AWS SQS.
 
+![enter image description here](http://i.imgur.com/F6ZZNrx.jpg)
+
 ## Installation
 
 Simply run:
