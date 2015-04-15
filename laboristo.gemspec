@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name          = 'laboristo'
-  s.version       = '0.3.1'
+  s.version       = '0.3.2'
   s.summary       = 'Simple messages and workers for AWS SQS'
   s.authors       = ['matiasow']
   s.email         = ['matiasow@gmail.com']
