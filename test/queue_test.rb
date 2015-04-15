@@ -23,7 +23,7 @@ test 'push message to queue' do
   fetched = fetch_last_message
   delete_message(fetched)
 
-  assert msg == message_body(fetched)
+  assert_equal msg, message_body(fetched)
 end
 
 test 'push message to queue using <<' do

@@ -25,6 +25,10 @@ opts = {}
 args = Clap.run ARGV,
   '-d' || '--daemonize' => -> {
     opts[:daemonize] = true
+  },
+  "-h" => -> {
+    puts(usage)
+    exit 0
   }
 
 command = args.shift
@@ -33,7 +37,10 @@ worker_path = File.expand_path("workers/#{worker}")
 pid_path = File.expand_path("tmp/#{worker}.pid")
 
 $stdout.sync = true
-
+puts command
+puts worker
+puts worker_path
+puts pid_path
 
 if opts[:daemonize]
   Process.daemon(true)

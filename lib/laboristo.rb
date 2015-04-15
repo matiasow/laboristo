@@ -15,7 +15,7 @@ module Laboristo
     end
 
     def push(message)
-      encoded = Base64.encode64(message.to_s)
+      encoded = Base64.encode64(message)
       @sqs.send_message(queue_url: @url, message_body: encoded)
     end
 
@@ -31,7 +31,7 @@ module Laboristo
             @sqs.delete_message(queue_url: @url,
                                 receipt_handle: msg[:receipt_handle])
           rescue StandardError => e
-            $stderr.puts "ERROR: Can't process message #{msg[:message_id]}.\n#{e}"
+            $stdout.puts "ERROR: Can't process message #{msg[:message_id]}.\n#{e}"
           end
         end
 
