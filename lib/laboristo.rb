@@ -3,14 +3,12 @@ require 'base64'
 
 module Laboristo
   class Queue
-    attr_accessor :name
     attr_accessor :url
     attr_accessor :sqs
 
-    def initialize(name)
-      @name = name
+    def initialize(url)
       @sqs = Aws::SQS::Client.new
-      @url = "https://sqs.#{ENV['AWS_REGION']}.amazonaws.com/#{ENV['AWS_ACCOUNT_ID']}/#{@name}"
+      @url = url
     end
 
     def push(message)
@@ -42,10 +40,6 @@ module Laboristo
     def purge
       @sqs.purge_queue(queue_url: @url)
     end
-  end
-
-  @queues = Hash.new do |hash, key|
-    hash[key] = Queue.new(key)
   end
 
   def self.[](queue)
