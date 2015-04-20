@@ -1,21 +1,19 @@
 require_relative 'helper'
 
 test 'initialize' do
-  q = Laboristo::Queue.new(@queue_name)
-  assert q.name == @queue_name
+  q = Laboristo::Queue.new(@url)
   assert q.sqs.is_a? Aws::SQS::Client
   assert q.url == @url
 end
 
 test 'initialize through []' do
-  q = Laboristo[@queue_name]
-  assert q.name == @queue_name
+  q = Laboristo[@url]
   assert q.sqs.is_a? Aws::SQS::Client
   assert q.url == @url
 end
 
 test 'push message to queue' do
-  q = Laboristo[@queue_name]
+  q = Laboristo[@url]
   msg = SecureRandom.uuid
 
   q.push(msg)
@@ -27,7 +25,7 @@ test 'push message to queue' do
 end
 
 test 'push message to queue using <<' do
-  q = Laboristo[@queue_name]
+  q = Laboristo[@url]
   msg = SecureRandom.uuid
 
   q << msg
@@ -39,7 +37,7 @@ test 'push message to queue using <<' do
 end
 
 test 'fetch messages using pop' do
-  q = Laboristo[@queue_name]
+  q = Laboristo[@url]
   msg = SecureRandom.uuid
 
   send_message(msg)
@@ -51,7 +49,7 @@ test 'fetch messages using pop' do
 end
 
 test 'fetch messages using each' do
-  q = Laboristo[@queue_name]
+  q = Laboristo[@url]
   msg = SecureRandom.uuid
 
   send_message(msg)
