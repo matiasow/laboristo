@@ -4,7 +4,6 @@
 [![Dependency Status](https://gemnasium.com/matiasow/laboristo.svg)][gemnasium]
 [![Code Climate](https://codeclimate.com/github/matiasow/laboristo/badges/gpa.svg)][codeclimate]
 [![Build Status](https://travis-ci.org/matiasow/laboristo.svg?branch=master)][travis]
-[![Test Coverage](https://codeclimate.com/github/matiasow/laboristo/badges/coverage.svg)][codeclimate]
 
 [gem]: http://badge.fury.io/rb/laboristo
 [gemnasium]: https://gemnasium.com/matiasow/laboristo
