@@ -38,8 +38,6 @@ And then execute:
 
 Before using Laboristo, you will need to set some environment variables:
 
-	AWS_REGION=<your_aws_region>
-	AWS_ACCOUNT_ID=<your_aws_account_id>
 	AWS_ACCESS_KEY_ID=<your_aws_access_key>
 	AWS_SECRET_ACCESS_KEY=<your_aws_secret_key>
 
@@ -57,18 +55,24 @@ Here are some considerations that you need to know when using Laboristo and SQS:
 
 ## Usage
 
+To refer to a particular queue, you will need the corresponding queue url, an attribute defined by AWS SQS when you create a queue. You can check the queue url in the AWS SQS Console. In the following examples, we will assume a queue having an url like this:
+
+```
+  https://sqs.us-east-1.amazonaws.com/123456789/my_queue
+```
+
 To push a message to the queue:
 
 ```ruby
 require 'laboristo'
 
-Laboristo['my_queue'] << 'some message'
+Laboristo['https://sqs.us-east-1.amazonaws.com/123456789/my_queue'] << 'some message'
 ```
 
 And get messages from a queue:
 ```ruby
 require 'laboristo'
-Laboristo['my_queue'].each do |msg|
+Laboristo['https://sqs.us-east-1.amazonaws.com/123456789/my_queue'].each do |msg|
   # Do something with msg...
 end
 ```
@@ -80,24 +84,30 @@ Workers can be as simple as this:
 ```ruby
   require 'my_app'
 
-  Laboristo['my_queue'].each do |message|
+  Laboristo['https://sqs.us-east-1.amazonaws.com/123456789/my_queue'].each do |message|
     # Do some magic stuff with the message
   end
 ```
 
-Place worker at ```./workers/my_worker.rb``` and run this code to run worker in foreground:
+For instance, you can place your worker at ```./workers/my_worker.rb``` and run this code to run worker in foreground:
 
 ```
-  $ laboristo my_worker
+  $ laboristo workers/my_worker
 ```
 
 To run it in background you can use ```-d``` flag to daemonize the process:
 
 ```
-  $ laboristo my_worker -d
+  $ laboristo workers/my_worker -d
 ```
 
-You can stop the workers by killing the process. Keep in mind that, because of how SQS works, unprocessed messages will go back to the queue.
+And, to stop a worker running in background, you can confidently kill the process:
+
+```
+  $ kill $$(cat /tmp/my_worker.pid)
+```
+
+Keep in mind that, because of how SQS works, unprocessed messages will go back to the queue. So, if you kill the worker process, unprocessed messages will go back to queue.
 
 ### Purging
 
@@ -106,6 +116,8 @@ Delete all messages from a queue:
 ```ruby
   Laboristo['my_queue'].purge
 ```
+
+Because of AWS SQS restrictions, you can purge a queue only once every 60 seconds.
 
 ## Development
 
@@ -123,9 +135,7 @@ Set environment variables as explained before in this document, and run the test
 
 ### TO-DO:
 
-First of all, add more tests! This gem stated as an experiment, so you can expect bugs.
-
-In future versions, I'd like to improve the worker bin so that it can be started/stopped in a more elegant fashion than simply killing the process ;-)
+First of all, help me adding more tests! This gem stated as an experiment, so you can expect bugs.
 
 Feel free to report bugs, open issues, comments and pull requests. Only keep in mind that I just want to keep this gem neat and simple.
 
