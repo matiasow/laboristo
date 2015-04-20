@@ -1,20 +1,8 @@
 #! /usr/bin/env ruby
 
-stop = proc do
-  if defined?(Laboristo)
-    Laboristo.stop
-  else
-    exit 0
-  end
-end
-
-trap(:INT,  &stop)
-trap(:TERM, &stop)
-
 usage = <<-EOS
 Usage:
-  laboristo start <worker> [-d|--daemonize]
-  laboristo stop <worker>
+  laboristo <worker> [-d|--daemonize]
 EOS
 
 require 'clap'
@@ -31,10 +19,9 @@ args = Clap.run ARGV,
     exit 0
   }
 
-command = args.shift
 worker = args.shift
-worker_path = File.expand_path("workers/#{worker}")
-pid_path = File.expand_path("tmp/#{worker}.pid")
+worker_path = File.expand_path(worker)
+pid_path = File.expand_path("/tmp/#{worker}.pid")
 
 $stdout.sync = true
 

@@ -11,7 +11,6 @@ module Laboristo
       @name = name
       @sqs = Aws::SQS::Client.new
       @url = "https://sqs.#{ENV['AWS_REGION']}.amazonaws.com/#{ENV['AWS_ACCOUNT_ID']}/#{@name}"
-      @stopping = false
     end
 
     def push(message)
@@ -34,21 +33,19 @@ module Laboristo
             $stdout.puts "ERROR: Can't process message #{msg[:message_id]}.\n#{e}"
           end
         end
-
-        break if @stopping
       end
     end
 
     alias << push
     alias pop each
 
-    def stop
-      @stopping = true
-    end
-
     def purge
       @sqs.purge_queue(queue_url: @url)
     end
+  end
+
+  @queues = Hash.new do |hash, key|
+    hash[key] = Queue.new(key)
   end
 
   def self.[](queue)
