@@ -113,7 +113,7 @@ Keep in mind that, because of how SQS works, unprocessed messages will go back t
 Delete all messages from a queue:
 
 ```ruby
-  Laboristo['my_queue'].purge
+  Laboristo['https://sqs.us-east-1.amazonaws.com/123456789/my_queue'].purge
 ```
 
 Because of AWS SQS restrictions, you can purge a queue only once every 60 seconds.
