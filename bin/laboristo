@@ -21,7 +21,7 @@ args = Clap.run ARGV,
 
 worker = args.shift
 worker_path = File.expand_path(worker)
-pid_path = File.expand_path("/tmp/#{worker}.pid")
+pid_path = File.expand_path("tmp/#{File.basename(worker_path, '.rb')}.pid")
 
 $stdout.sync = true
 
