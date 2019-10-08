@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.bindir        = 'bin'
   s.executables   << 'laboristo'
 
-  s.add_dependency 'aws-sdk-core', '~> 2'
+  s.add_dependency 'aws-sdk-core', '>= 2', '< 4'
   s.add_dependency 'clap', '~> 1'
 
   s.add_development_dependency 'cutest', '~> 1.2'
